@@ -9,12 +9,12 @@ The project utilizes the FER 2013 dataset obtained from Kaggle. This dataset con
 # Dependencies:
 Ensure the installation of the following libraries before running the Colab notebook:
 
-numpy
-streamlit==1.9.0
-tensorflow-cpu==2.9.0
-opencv-python-headless==4.5.5.64
-streamlit-webrtc==0.37.0
-Project Overview:
+- numpy
+- streamlit==1.9.0
+- tensorflow-cpu==2.9.0
+- opencv-python-headless==4.5.5.64
+- streamlit-webrtc==0.37.0
+- Project Overview:
 
 # Data Preparation:
 
