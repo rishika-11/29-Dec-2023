@@ -21,13 +21,16 @@ Ensure the installation of the following libraries before running the Colab note
 Download the FER 2013 dataset from Kaggle.
 Define training and validation sets.
 Preprocess the data by rescaling and augmenting to enhance variability.
+
 Build a Convolutional Neural Network (CNN) using TensorFlow and Keras.
 The model comprises convolutional layers, batch normalization, max pooling, dropout, and fully connected layers.
 Adam optimizer is used with categorical crossentropy loss for compilation.
+
 Train the model using the prepared datasets.
 Evaluate accuracy on both the training and validation sets.
 Analyze the confusion matrix to identify areas of improvement.
 Note that lower performance in classes like 'angry' and 'fear' may be attributed to limited data for these classes.
+
 Utilize OpenCV and Streamlit to create a web app.
 The app monitors live facial emotion recognition, successfully identifying and displaying emotions in real-time.
 Multiple faces and their respective emotions can be detected simultaneously.
