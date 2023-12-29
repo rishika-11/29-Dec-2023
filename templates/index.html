@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <h1>Emotion Detection</h1>
+    <button onclick="takePicture()">Take a Pic</button>
+    <button onclick="detectEmotion()">Detect Emotion</button>
+    <div id="result"></div>
+    <video id="video" width="640" height="480" style="display:none;"></video>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+
+    <script>
+        async function takePicture() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+                // Update the video element source
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+                video.style.display = 'block';
+
+                // Play the video stream
+                await video.play();
+
+                // Show the canvas for capturing the image
+                const canvas = document.getElementById('canvas');
+                canvas.style.display = 'block';
+
+                // Draw the current video frame on the canvas
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+            }
+        }
+
+        async function detectEmotion() {
+            const canvas = document.getElementById('canvas');
+            const imageBase64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+
+            try {
+                const response = await fetch('/detect_emotion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image_base64: imageBase64 }),
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    // Update the result div with the detected emotion
+                    $('#result').text('Detected Emotion: ' + result.emotion);
+                } else {
+                    console.error('Error:', response.status, response.statusText);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
