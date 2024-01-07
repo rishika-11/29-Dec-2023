@@ -13,6 +13,7 @@ Ensure the installation of the following libraries before running the Colab note
 - tensorflow
 - opencv-python
 - streamlit
+- flask
   
 
 # Data Preparation
